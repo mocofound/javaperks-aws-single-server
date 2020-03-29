@@ -42,7 +42,7 @@ sudo bash -c "cat >/root/jobs/nvidia-gpu-job.nomad" <<EOF
                     }]
                 },
                 "Services": [{
-                    "Name": "product-api",
+                    "Name": "nvidia-gpu",
                     "PortLabel": "svc"
                 }]
             }],
