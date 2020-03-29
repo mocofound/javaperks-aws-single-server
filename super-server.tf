@@ -58,7 +58,7 @@ resource "aws_db_instance" "javaperks-mysql" {
     storage_type = "gp2"
     engine = "mysql"
     engine_version = "5.7"
-    instance_class = "db.${var.instance_size}"
+    instance_class = "db.${var.instance_size_db}"
     name = "javaperks${var.unit_prefix}"
     identifier = "javaperksdb${var.unit_prefix}"
     db_subnet_group_name = "${aws_db_subnet_group.dbsubnets.name}"
