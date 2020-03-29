@@ -39,7 +39,7 @@ resource "aws_instance" "hashi-server" {
     tags = {
         Name = "javaperks-server-${var.unit_prefix}"
         TTL = "-1"
-        owner = "kcochran@hashicorp.com"
+        owner = "${var.owner}"
     }
 
     depends_on = [
