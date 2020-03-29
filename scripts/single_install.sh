@@ -198,9 +198,13 @@ cd /root/javaperks-aws-single-server/
 
 . ./scripts/13_create_job_connect.sh
 
-# Create and Launch GPU Job
+# Create and Launch NVIDIA GPU Job
 
 . ./scripts/14_create_gpu_job.sh
+
+# Create and Launch NVIDIA GPU SMI Job
+
+. ./scripts/15_create_nvidia_gpu_smi_job.sh
 
 # Populate with data after jobs are running
 
