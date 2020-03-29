@@ -198,10 +198,15 @@ cd /root/javaperks-aws-single-server/
 
 . ./scripts/13_create_job_connect.sh
 
+# Create and Launch GPU Job
+
+. ./scripts/14_create_gpu_job.sh
+
 # Populate with data after jobs are running
 
 . ./scripts/20_postpopulate_data.sh
 
 # all done!
+
 echo "Javaperks Application complete."
 
