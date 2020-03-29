@@ -137,7 +137,7 @@ echo $CLIENT_IP $(echo "ip-$CLIENT_IP" | sed "s/\./-/g") >> /etc/hosts
 # 
 echo "...cloning repo"
 cd /root
-git clone --branch "${BRANCH_NAME}" https://github.com/kevincloud/javaperks-aws-single-server.git
+git clone --branch "${BRANCH_NAME}" https://github.com/mocofound/javaperks-aws-single-server.git
 
 echo "Preparation complete."
 
