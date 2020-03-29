@@ -39,6 +39,11 @@ variable "instance_size" {
     default = "t3.large"
 }
 
+variable "instance_size_db" {
+    description = "Size of instance for database"
+    default = "t3.large"
+}
+
 variable "consul_dl_url" {
     description = "URL for downloading Consul"
     default = "https://releases.hashicorp.com/consul/1.6.1/consul_1.6.1_linux_amd64.zip"
