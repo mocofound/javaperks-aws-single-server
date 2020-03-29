@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Creating nvidia gpu job file..."
-sudo bash -c "cat >/root/jobs/nvidia-job.nomad" <<EOF
+sudo bash -c "cat >/root/jobs/nvidia-gpu-job.nomad" <<EOF
 {
     "Job": {
         "ID": "nvidia-gpu-job",
