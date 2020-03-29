@@ -29,6 +29,10 @@ sudo bash -c "cat >/root/jobs/nvidia-gpu-job.nomad" <<EOF
                     "Envvars": true
                 }],
                 "Resources": {
+                     "Device": [{
+                        "Name": "nvidia/gpu",
+                        "count" = 1
+                        }],
                     "CPU": 100,
                     "MemoryMB": 80,
                     "Networks": [{
