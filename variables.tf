@@ -1,3 +1,7 @@
+variable "owner" {
+    description = "Tag Owner"
+}
+
 variable "aws_access_key" {
     description = "AWS Access Key"
 }
