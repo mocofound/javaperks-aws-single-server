@@ -200,7 +200,7 @@ cd /root/javaperks-aws-single-server/
 
 # Create and Launch NVIDIA GPU Job
 
-. ./scripts/14_create_gpu_job.sh
+. ./scripts/14_create_nvidia_gpu_job.sh
 
 # Create and Launch NVIDIA GPU SMI Job
 
