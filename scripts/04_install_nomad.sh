@@ -37,6 +37,11 @@ bind_addr = "0.0.0.0"
 datacenter = "${REGION}"
 enable_debug = true
 
+plugin "nvidia-gpu" {
+  ignored_gpu_ids = ["GPU-fef8089b", "GPU-ac81e44d"]
+  fingerprint_period = "1m"
+}
+
 ports {
     http = 4646
     rpc  = 4647
