@@ -2,7 +2,7 @@
 
 echo "Creating nvidia smi job file..."
 sudo bash -c "cat >/root/jobs/nvidia-gpu-smi-job.nomad" <<EOF
-job "gpu-test" {
+job "nvidia-gpu-smi-job" {
   datacenters = ["$REGION"],
   type = "batch"
 
