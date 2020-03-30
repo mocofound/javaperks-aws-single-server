@@ -1,5 +1,45 @@
 #!/bin/bash
 
+#working.  replace json job below with this one.
+job "nvidia-gpu-job" {
+  datacenters = ["us-east-1"]
+  type = "service"
+
+  update {
+  progress_deadline = "1h"
+  }
+
+  group "nvidia-gpu-group" {
+    task "nvidia-gpu" {
+      driver = "docker"
+
+      config {
+        image = "linuxserver/foldingathome:7.5.1-ls1"
+        port_map {
+          svc = 7396
+        }
+      }
+
+      resources {
+        network {
+          port "svc" {}
+        }
+        device "nvidia/gpu" {
+          count = 1
+
+          # Add an affinity for a particular model
+          affinity {
+            attribute = "${device.model}"
+            value     = "Tesla K80"
+            weight    = 50
+          }
+        }
+      }
+    }
+  }
+}
+
+
 echo "Creating nvidia gpu job file..."
 sudo bash -c "cat >/root/jobs/nvidia-gpu-job.nomad" <<EOF
 {
