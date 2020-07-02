@@ -4,7 +4,7 @@
 echo "Creating nginx file..."
 sudo bash -c "cat >/root/jobs/nginx.nomad" <<EOF
 job "nginx" {
-  datacenters = ["dc1"]
+  datacenters = ["$REGION"]
 
   group "nginx" {
     count = 1
