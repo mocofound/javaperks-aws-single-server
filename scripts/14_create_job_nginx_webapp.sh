@@ -3,7 +3,7 @@
 echo "Creating customer api job file..."
 sudo bash -c "cat >/root/jobs/webapp.nomad" <<EOF
 job "demo-webapp" {
-  datacenters = ["dc1"]
+  datacenters = ["$REGION"]
 
   group "demo" {
     count = 3
