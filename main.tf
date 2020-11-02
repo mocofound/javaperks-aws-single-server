@@ -1,7 +1,8 @@
 provider "aws" {
-    access_key = "${var.aws_access_key}"
-    secret_key = "${var.aws_secret_key}"
-    region = "${var.aws_region}"
+    access_key = var.aws_access_key
+    secret_key = var.aws_secret_key
+    token = var.aws_session_token
+    region = var.aws_region
 }
 
 resource "aws_vpc" "primary-vpc" {
@@ -10,53 +11,73 @@ resource "aws_vpc" "primary-vpc" {
 
     tags = {
         Name = "javaperks-vpc-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_internet_gateway" "igw" {
-    vpc_id = "${aws_vpc.primary-vpc.id}"
+    vpc_id = aws_vpc.primary-vpc.id
 
     tags = {
         Name = "javaperks-igw-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_subnet" "public-subnet" {
-    vpc_id = "${aws_vpc.primary-vpc.id}"
+    vpc_id = aws_vpc.primary-vpc.id
     cidr_block = "10.0.1.0/24"
     availability_zone = "${var.aws_region}a"
     map_public_ip_on_launch = true
-    depends_on = ["aws_internet_gateway.igw"]
+    depends_on = [aws_internet_gateway.igw]
 
     tags = {
         Name = "javaperks-public-subnet-1-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_subnet" "private-subnet" {
-    vpc_id = "${aws_vpc.primary-vpc.id}"
+    vpc_id = aws_vpc.primary-vpc.id
     cidr_block = "10.0.2.0/24"
     availability_zone = "${var.aws_region}b"
 
     tags = {
         Name = "javaperks-private-subnet-1-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_subnet" "private-subnet-2" {
-    vpc_id = "${aws_vpc.primary-vpc.id}"
+    vpc_id = aws_vpc.primary-vpc.id
     cidr_block = "10.0.3.0/24"
     availability_zone = "${var.aws_region}c"
 
     tags = {
         Name = "javaperks-private-subnet-2-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_route" "public-routes" {
-    route_table_id = "${aws_vpc.primary-vpc.default_route_table_id}"
+    route_table_id = aws_vpc.primary-vpc.default_route_table_id
     destination_cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.igw.id}"
+    gateway_id = aws_internet_gateway.igw.id
 }
 
 resource "aws_eip" "nat-ip" {
@@ -64,34 +85,47 @@ resource "aws_eip" "nat-ip" {
 
     tags = {
         Name = "javaperks-eip-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_nat_gateway" "natgw" {
-    allocation_id   = "${aws_eip.nat-ip.id}"
-    subnet_id       = "${aws_subnet.public-subnet.id}"
-    depends_on      = ["aws_internet_gateway.igw","aws_subnet.public-subnet"]
+    allocation_id   = aws_eip.nat-ip.id
+    subnet_id       = aws_subnet.public-subnet.id
+    depends_on      = [aws_internet_gateway.igw, aws_subnet.public-subnet]
 
     tags = {
         Name = "javaperks-natgw-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_route_table" "natgw-route" {
-    vpc_id = "${aws_vpc.primary-vpc.id}"
+    vpc_id = aws_vpc.primary-vpc.id
     route {
         cidr_block = "0.0.0.0/0"
-        nat_gateway_id = "${aws_nat_gateway.natgw.id}"
+        nat_gateway_id = aws_nat_gateway.natgw.id
     }
+
 
     tags = {
         Name = "javaperks-natgw-route-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
 resource "aws_route_table_association" "route-out" {
-    subnet_id = "${aws_subnet.private-subnet.id}"
-    route_table_id = "${aws_route_table.natgw-route.id}"
+    subnet_id = aws_subnet.private-subnet.id
+    route_table_id = aws_route_table.natgw-route.id
 }
 
 

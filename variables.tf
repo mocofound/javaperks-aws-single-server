@@ -6,6 +6,10 @@ variable "aws_secret_key" {
     description = "AWS Secret Key"
 }
 
+variable "aws_session_token" {
+    description = "AWS Session Token"
+}
+
 variable "aws_region" {
     description = "AWS Region"
     default = "us-east-1"
@@ -67,6 +71,10 @@ variable "vault_license_key" {
     description = "License key for Vault Enterprise"
 }
 
+variable "nomad_license_key" {
+    description = "License key for Vault Enterprise"
+}
+
 variable "unit_prefix" {
     description = "Prefix for each resource to be created"
 }
@@ -87,4 +95,20 @@ variable "ldap_pass" {
 variable "git_branch" {
     description = "Branch used for this instance"
     default = "master"
+}
+
+variable "owner" {
+    description = ""
+}
+
+variable "hc_region" {
+    description = ""
+}
+
+variable "purpose" {
+    description = ""
+}
+
+variable "ttl" {
+    description = ""
 }

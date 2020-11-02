@@ -24,15 +24,11 @@ resource "aws_dynamodb_table" "customer-cart" {
         projection_type = "ALL"
     }
 
-    # global_secondary_index {
-    #     name = "EmailIndex"
-    #     hash_key = "EmailAddress"
-    #     write_capacity = 10
-    #     read_capacity = 10
-    #     projection_type = "ALL"
-    # }
-
     tags = {
         Name = "customer-cart-${var.unit_prefix}"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
